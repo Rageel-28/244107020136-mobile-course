@@ -19,7 +19,11 @@ class MyApp extends StatelessWidget {
             children: [
               Icon(Icons.school, size: 72),
               SizedBox(height: 16),
-              Text('rAKAGALI rESDA', style: TextStyle(fontSize: 24)),
+              Text('Rakagali Resda', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              SizedBox(height: 8),
+              Text('NIM: 244107020136', style: TextStyle(fontSize: 18)),
+              Text('Kelas: TI-3C | Absen: 19', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
               Text('Pemrograman Mobile — Minggu 1'),
             ],
           ),
