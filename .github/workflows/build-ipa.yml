@@ -47,15 +47,15 @@ jobs:
           mkdir -p build/ipa/Payload
           cp -r build/ios/iphoneos/Runner.app build/ipa/Payload/
           cd build/ipa
-          zip -r ../../app_mahasiswa.ipa Payload
+          zip -r ../../AppMahasiswa.ipa Payload
           cd ../..
-          ls -lh app_mahasiswa.ipa
+          ls -lh AppMahasiswa.ipa
 
       - name: Upload IPA as GitHub Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app_mahasiswa-ipa
-          path: 06-week-6/pemmob/app_mahasiswa/app_mahasiswa.ipa
+          name: AppMahasiswa-ipa
+          path: 06-week-6/pemmob/app_mahasiswa/AppMahasiswa.ipa
           retention-days: 14
 
       - name: Create GitHub Release
@@ -68,9 +68,9 @@ jobs:
             ### iOS IPA Build for Sideloading (iLoader / Sideloadly / Scarlet / TrollStore)
             - **Commit**: ${{ github.sha }}
             - **Branch**: ${{ github.ref_name }}
-            - **File**: `app_mahasiswa.ipa`
+            - **File**: `AppMahasiswa.ipa`
             
             Download the `.ipa` below and install it using your sideloading tool of choice.
-          files: 06-week-6/pemmob/app_mahasiswa/app_mahasiswa.ipa
+          files: 06-week-6/pemmob/app_mahasiswa/AppMahasiswa.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
