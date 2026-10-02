@@ -1,0 +1,76 @@
+﻿name: Build iOS IPA (Sideload / iLoader)
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Publish to GitHub Releases (Direct IPA Download)?'
+        required: false
+        type: boolean
+        default: true
+  push:
+    branches:
+      - main
+    paths:
+      - '06-week-6/pemmob/app_mahasiswa/**'
+      - '.github/workflows/build-ipa.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-ipa:
+    name: Build Unsigned IPA
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Get Flutter Packages
+        working-directory: 06-week-6/pemmob/app_mahasiswa
+        run: flutter pub get
+
+      - name: Build iOS Application (Unsigned)
+        working-directory: 06-week-6/pemmob/app_mahasiswa
+        run: flutter build ios --release --no-codesign
+
+      - name: Package Payload into IPA
+        working-directory: 06-week-6/pemmob/app_mahasiswa
+        run: |
+          mkdir -p build/ipa/Payload
+          cp -r build/ios/iphoneos/Runner.app build/ipa/Payload/
+          cd build/ipa
+          zip -r ../../app_mahasiswa.ipa Payload
+          cd ../..
+          ls -lh app_mahasiswa.ipa
+
+      - name: Upload IPA as GitHub Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app_mahasiswa-ipa
+          path: 06-week-6/pemmob/app_mahasiswa/app_mahasiswa.ipa
+          retention-days: 14
+
+      - name: Create GitHub Release
+        if: ${{ github.event.inputs.create_release == 'true' || github.event_name == 'push' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ipa-v${{ github.run_number }}
+          name: Release IPA Build #${{ github.run_number }}
+          body: |
+            ### iOS IPA Build for Sideloading (iLoader / Sideloadly / Scarlet / TrollStore)
+            - **Commit**: ${{ github.sha }}
+            - **Branch**: ${{ github.ref_name }}
+            - **File**: `app_mahasiswa.ipa`
+            
+            Download the `.ipa` below and install it using your sideloading tool of choice.
+          files: 06-week-6/pemmob/app_mahasiswa/app_mahasiswa.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
