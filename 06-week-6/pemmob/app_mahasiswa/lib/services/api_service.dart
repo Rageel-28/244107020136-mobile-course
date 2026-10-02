@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/mahasiswa.dart';
  
 class ApiService {
-  // Gunakan localhost karena menggunakan Flutter Web
-  static const String baseUrl = 'http://localhost:8000/api/mahasiswa';
+  // Web: localhost, HP Fisik (iOS/Android): IP Laptop (172.20.10.9)
+  static const String baseUrl = kIsWeb
+      ? 'http://localhost:8000/api/mahasiswa'
+      : 'http://172.20.10.9:8000/api/mahasiswa';
 
   static const Map<String, String> headers = {
     'Content-Type': 'application/json',
