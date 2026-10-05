@@ -8,6 +8,7 @@ import '../widgets/note_tile.dart';
 import '../widgets/note_form_dialog.dart';
 import 'posts_page.dart';
 import 'settings_page.dart';
+import 'package:go_router/go_router.dart';
  
 class NotesPage extends ConsumerWidget {
   const NotesPage({super.key});
@@ -97,7 +98,7 @@ class NotesPage extends ConsumerWidget {
               final note = notes[index];
               return NoteTile(
                 note: note,
-                onTap: () => _openForm(context, ref, note),
+                onTap: () => context.push('/note/${note.id}'),
                 onDelete: () => ref.read(noteActionsProvider).delete(note.id!),
               );
             },
