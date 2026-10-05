@@ -1,0 +1,7 @@
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+07-week-7/week5_offline_notes/
