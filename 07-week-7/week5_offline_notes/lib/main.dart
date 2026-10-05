@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
- 
-import 'pages/settings_page.dart';
+
+import 'data/local/db_init.dart';
+import 'pages/notes_page.dart';
 import 'providers/prefs_providers.dart';
- 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setupDatabaseFactory();
   runApp(const ProviderScope(child: OfflineNotesApp()));
 }
- 
+
 class OfflineNotesApp extends ConsumerWidget {
   const OfflineNotesApp({super.key});
- 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDark = ref.watch(darkModeProvider).value ?? false;
- 
+
     return MaterialApp(
       title: 'Offline Notes',
       debugShowCheckedModeBanner: false,
@@ -28,7 +30,7 @@ class OfflineNotesApp extends ConsumerWidget {
         brightness: Brightness.dark,
       ),
       themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-      home: const SettingsPage(), // diganti NotesPage pada Praktikum 3
+      home: const NotesPage(), // diganti NotesPage pada Praktikum 3
     );
   }
 }

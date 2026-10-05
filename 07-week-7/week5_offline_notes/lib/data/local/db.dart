@@ -1,10 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
- 
+
 Future<Database> openNotesDb() async {
-  final dir = await getDatabasesPath();
+  final String path;
+  if (kIsWeb) {
+    path = 'offline_notes.db';
+  } else {
+    final dir = await getDatabasesPath();
+    path = p.join(dir, 'offline_notes.db');
+  }
+
   return openDatabase(
-    p.join(dir, 'offline_notes.db'),
+    path,
     version: 1,
     onCreate: (db, version) async {
       await db.execute('''
