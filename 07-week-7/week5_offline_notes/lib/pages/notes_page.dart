@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
  
 import '../data/local/note.dart';
-import '../data/sync.dart';
+import '../data/offline_exception.dart';
 import '../providers/note_providers.dart';
 import '../widgets/note_tile.dart';
 import '../widgets/note_form_dialog.dart';

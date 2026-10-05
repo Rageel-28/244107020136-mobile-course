@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
  
 import '../data/remote/post.dart';
 import '../data/repositories/post_repository.dart';
-import '../data/sync.dart';
+import '../data/offline_exception.dart';
 import 'offline_providers.dart';
  
 final postRepositoryProvider =

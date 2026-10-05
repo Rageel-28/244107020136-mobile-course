@@ -4,6 +4,7 @@ import 'package:week5_offline_notes/data/local/note.dart';
 import 'package:week5_offline_notes/data/repositories/note_repository.dart';
 import 'package:week5_offline_notes/data/sync.dart';
 import 'package:week5_offline_notes/providers/note_providers.dart';
+import 'package:week5_offline_notes/data/offline_exception.dart';
  
 class FakeNoteRepository extends NoteRepository {
   FakeNoteRepository({List<Note> items = const [], this.throwError = false})

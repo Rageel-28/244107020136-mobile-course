@@ -1,14 +1,6 @@
 import 'local/note.dart';
+import 'offline_exception.dart';
 import 'repositories/note_repository.dart';
- 
-class OfflineException implements Exception {
-  const OfflineException(this.message);
- 
-  final String message;
- 
-  @override
-  String toString() => 'OfflineException: $message';
-}
  
 /// Mengirim catatan dirty ke "server" (simulasi) lalu menandainya bersih.
 /// Mengembalikan jumlah catatan yang tersinkron.
